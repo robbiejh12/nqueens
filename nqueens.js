@@ -1,26 +1,45 @@
-var boardSize = 4; //set square size
-
+var size = 5;
 var solutions = 0;
 var array = [];
-var maxVal = (boardSize-1);
 
-function init(x,y) {
-	while (x<boardSize) {
-		while (y<boardSize) {
-			console.log(x,y);
-			var point = new Point(x,y);
-			point.compare();
-			y++;
-		}
-		y=0;
-		x++;
-	}
-	cycle();
+function init() {
+	solve();
+	console.log(array);
 }
 
-function cycle() {
-	if (array.length<maxVal) {
+function solve() {
+	for (x=0;x<5;x++) {
+		if (array.includes(x)) {
+			console.log('fail');
+			break;
+		}
+		array.push(x);
+	}
+}
+
+function clashes(x1,y1,x2,y2) {
+	if (x1===x2 || y1===y2 || Math.abs(x1-x2) === Math.abs(y1-y2)) {
+		return true;
+	}
+}
+
+
+
+
+/*
+if (x<boardSize && y<boardSize) {
+		var point = new Point(x,y);
+		iterate(point);
+	}
+}
+
+function iterate(point) {
+	while (point.clashes() && point.y<boardSize) {
+		point.iter();
+	}
+	if (point.y>=boardSize) {
 		var pop = array.pop();
+		pop.iter();
 		init(pop.x,pop.y);
 	}
 }
@@ -28,20 +47,19 @@ function cycle() {
 function Point(x,y) {
 	this.x = x;
 	this.y = y;
-	this.index = false;
-	this.compare = function () {
-		if (!anyMatch(this.x,this.y)) {
-			this.add();
-			console.log(array);
-		};
+	this.clashes = function () {
+		return anyMatch(this.x,this.y);
 	};
 	this.add = function () {
 		array.push(this);
-		this.index = array.indexOf(this);
+		//this.index = array.indexOf(this);
 	};
 	this.del = function () {
-		array.splice(this.index,1)
-	};
+
+	}
+	this.iter = function () {
+		this.y++;
+	}
 }
 
 function anyMatch(x,y) {
@@ -68,3 +86,5 @@ function diaMatch(x,y) {
 	}
 	return false;
 }
+
+*/
